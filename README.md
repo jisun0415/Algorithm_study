@@ -1,2 +1,1 @@
-# Problem-Solving-in-joon
-c++
+#practice_c
