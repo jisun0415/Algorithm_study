@@ -1,26 +1,30 @@
 #include <iostream>
 using namespace std;
 
-
 int main()
 {
-	
-	int n, ele,x[1000];
-	double max = -9999;
-	double result = 0;
-	cin >> n;
-	for (int i = 0; i < n; i++)
-	{
-		cin >> x[i];
-		if (max < x[i])
-			max = x[i];
-		result += x[i];
-	}
-	result = (result / max * 100) / n;
-
-	cout << fixed;
-	cout.precision(6);
-	cout << result << '\n';
-	
+    int N;
+    int n[1000];
+    
+    cin>>N;
+    
+    for(int i=0;i<N;i++)
+    {
+        cin>>n[i];    
+    }
+    
+    long sum=0;
+    long max=0;
+    
+    for(int i=0;i<N;i++)
+    {
+        if(n[i]>max)
+        {
+            max=n[i];    
+        }
+        sum+=n[i];
+    }
+    
+    cout<<(sum*100.0)/max/N<<"\n";
 
 }
