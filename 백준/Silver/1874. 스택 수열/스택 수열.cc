@@ -1,65 +1,34 @@
 #include <iostream>
-#include <vector>
+#include <algorithm>
 #include <stack>
-
+#include <vector>
 using namespace std;
+stack<int> st;
+vector<char> v;
+int main() {
+	ios_base::sync_with_stdio(false), cin.tie(NULL);
+	int n,cnt=1;
+	
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		int x;
+		cin >> x;
+		while (cnt <= x) {
+			v.push_back('+');
+			st.push(cnt);
+			cnt++;
+		}
 
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    
-    int N;
-    cin>>N;
-    vector<int> A(N,0);
-    vector<char> resultV;
-    
-    for(int i=0;i<N;i++)
-    {
-       cin>>A[i]; 
-    }
-    
-    stack<int> myStack;
-    int num=1;
-    bool result=true;
-    
-    for(int i=0;i<A.size();i++)
-    {
-        int su=A[i];
-        
-        if(su>=num)
-        {    
-            while(su>=num)
-            {
-                myStack.push(num++);
-                resultV.push_back('+');
-            }
-            myStack.pop();
-            resultV.push_back('-');
-        }
-        else{
-            int n=myStack.top();
-            myStack.pop();
-            if(n>su)
-            {
-                cout<<"NO";
-                result=false;
-                break;
-            }
-            else
-            {
-                resultV.push_back('-');    
-            }
-        }
-    }
-    
-    if(result)
-    {
-        for(int i=0;i<resultV.size();i++)
-        {
-            cout<<resultV[i]<<"\n";
-        }
-    }
-
+		if(x == st.top()) {
+			st.pop();
+			v.push_back('-');
+		}
+		else {
+			cout << "NO";
+			return 0;
+		}
+	}
+	for (int i = 0; i < v.size(); i++) {
+		cout << v[i] << "\n";
+	}
 }
