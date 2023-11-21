@@ -1,62 +1,48 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include<iostream>
+#include<vector>
+#include<algorithm>
 using namespace std;
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    
-    int n;
-    cin>>n;
-    
-    vector<int> A(n,0);
-    
-    for(int i=0;i<n;i++)
-    {
-        cin>>A[i];    
-    }
-    
-    sort(A.begin(),A.end());
-    
-    int count=0;
-    
-    for(int k=0;k<n;k++)
-    {
-        long find=A[k];
-        int i=0,j=n-1;
-        while(i<j)
-        {
-            if(A[i]+A[j]==find)
-            {
-                if(i!=k&&j!=k)
-                {
-                    count++;
-                    break;
-                }
-                else if(i==k)
-                {
-                    i++;
-                }
-                else if(j==k)
-                {
-                    j--;                    
-                }
-            }
-            else if(A[i]+A[j]>find)
-            {
-                j--;
-            }
-            else if(A[i]+A[j]<find)
-            {
-                i++;
-            }
-        }
-    }
-    
-    cout<<count<<"\n";
+	int n;
+	cin >> n;
+	vector<int> num(n, 0);
 
+
+	for (int i = 0; i < n; i++)
+	{
+		cin >> num[i];
+	}
+
+	sort(num.begin(), num.end());
+
+	int result = 0;
+	for (int i = 0; i < n; i++)
+	{
+		int start = 0, end = n - 1;
+		
+		
+		while (start < end)
+		{
+			if (num[i] < num[start] + num[end])
+				end--;
+			else if (num[i] > num[start] + num[end])
+				start++;
+			else
+			{
+				if (start == i) start++;
+				else if (end == i) end--;
+				else
+				{
+					result++;
+					break;
+				}
+			}
+
+		}
+	}
+
+	cout << result << "\n";
 
 }
