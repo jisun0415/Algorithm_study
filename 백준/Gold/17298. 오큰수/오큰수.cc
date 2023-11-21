@@ -1,32 +1,42 @@
 #include<iostream>
-#include<algorithm>
+#include<vector>
 #include<stack>
-using namespace std;
+#include<queue>
 
-int N;
-stack<int> s;
-int ans[1000001];
-int seq[1000001];
+using namespace std;
 
 int main()
 {
-	cin >> N;
-	// 수열 입력받기
-	for (int i = 0; i < N; i++)
-		cin >> seq[i];
 	
-	for (int i = N - 1; i >= 0; i--)
+	int n;
+	cin >> n;
+
+	vector<int> num(n,0);
+
+	for (int i = 0; i < n; i++)
+		cin >> num[i];
+
+	vector<int> result(n,0);
+	stack<int> st;
+	
+
+	for (int i = n-1; i >= 0 ; i--)
 	{
-		while (!s.empty() && s.top() <= seq[i])
-			s.pop();
+		while (!st.empty() && st.top() <= num[i])
+		{
+			st.pop();
+		}
+		if (st.empty())
+			result[i]=-1;
+		else 
+			result[i]=st.top();
 
-		if (s.empty()) ans[i] = -1;
-		else ans[i] = s.top();
-
-		s.push(seq[i]);
+		st.push(num[i]);
 	}
-	
-	// 정답 출력
-	for (int i = 0; i < N; i++)
-		cout << ans[i] << " ";
+
+	for (int i = 0 ; i < n; i++)
+	{
+		cout << result[i] << " ";
+	}
+
 }
