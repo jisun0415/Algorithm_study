@@ -6,36 +6,21 @@ using namespace std;
 
 int main()
 {
-	int n;
+	string s, ret;
+	int n, cnt[26] = {0};
+
 	cin >> n;
-	int cnt[150] = {0};
 	for (int i = 0; i < n; i++)
 	{
-		string str;
-		cin >> str;
-		cnt[str[0] - 'a']++;
+		cin >> s;
+		cnt[s[0] - 'a']++;
 	}
-
-	vector<char> v;
-	int plag = 0;
 	for (int i = 0; i < 26; i++)
 	{
-		if (cnt[i] >= 5) {
-			v.push_back('a' + i);
-			plag = 1;
-		}
+		if (cnt[i] >= 5)
+			ret += (i + 'a');
 	}
 
-	sort(v.begin(), v.end());
-	
-	if (plag == 0)
-	{
-		cout << "PREDAJA";
-	}
-	else
-	{
-		for (int i = 0; i < v.size(); i++)
-			cout << v[i];
-	}
-	return 0;
+	if (ret.size()) cout << ret << "\n";
+	else cout << "PREDAJA" << "\n";
 }
