@@ -1,80 +1,71 @@
-#include <iostream>
-#include <queue>
-#include <vector>
-#define MAX 101
-#include <algorithm>
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<string>
 
 using namespace std;
 
-int map[MAX][MAX];
-int visited[MAX][MAX];
-int dx[4] = {-1, 1, 0, 0};
-int dy[4] = {0, 0, -1, 1};
-vector<int> n;
-int N;
-void bfs(int x, int y)
-{
-    visited[x][y] = 1;
-    queue<pair<int, int>> q;
-    q.push(make_pair(x, y));
-    int cnt = 1;
 
-    while (!q.empty())
-    {
-        int front_x = q.front().first;
-        int front_y = q.front().second;
+int dx[4] = { -1,1,0,0 };
+int dy[4] = { 0,0,-1,1 };
+int visited[25][25] = {0};
+int map[25][25] = {0};
+vector<int> ans;
+int danzi = 0;
+int n;
 
-        q.pop();
+void dfs(int x, int y) {
+	visited[x][y] = 1;
+	danzi++;
 
-        for (int i = 0; i < 4; i++)
-        {
-            int next_x = front_x + dx[i];
-            int next_y = front_y + dy[i];
+	for (int i = 0; i < 4; i++)
+	{
+		int nx = x + dx[i];
+		int ny = y + dy[i];
+		if (visited[nx][ny] == 0 && map[nx][ny] == 1&&nx>=0&&nx<n&&ny>=0&&ny<n)
+		{
+			dfs(nx, ny);
+		}
+	}
 
-            
-            if (next_x >= 0 && next_x < N && next_y >= 0 && next_y < N && !visited[next_x][next_y] && map[next_x][next_y] == 1)
-            {
-                q.push(make_pair(next_x, next_y));
-                visited[next_x][next_y] = 1;
-                cnt++;
-            }
-        }
-    }
-
-    n.push_back(cnt);
 }
 
 int main()
 {
-    
-    cin >> N;
-    for (int i = 0; i < N; i++)
-    {
-        string s;
-        cin >> s;
-        for (int j = 0; j < N; j++)
-        {
-            map[i][j] = s[j] - '0';
-        }
-    }
+	
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		string s;
+		cin >> s;
 
-   for(int i=0;i<N;i++)
-        {
-            for(int j=0;j<N;j++)
-                {
-                    if(!visited[i][j] && map[i][j]==1)
-                        bfs(i,j);
-                }
-        }
+		for (int j = 0; j < n; j++)
+		{
+			map[i][j] = s[j] - '0';
+		}
+	}
 
-    sort(n.begin(), n.end());
-    
-    cout << n.size() << "\n";
-    
-    for (int i = 0; i < n.size(); i++)
-    {
-        cout << n[i] << "\n";
-    }
+	int cnt = 0;
 
-    return 0;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			if (map[i][j] == 1 && visited[i][j] == 0)
+			{
+				dfs(i, j);
+				cnt++;
+				ans.push_back(danzi);
+				danzi = 0;
+
+			}
+		}
+	}
+
+	sort(ans.begin(), ans.end());
+
+	cout << cnt << "\n";
+	for (int i = 0; i < ans.size(); i++)
+		cout << ans[i] << "\n";
+
 }
